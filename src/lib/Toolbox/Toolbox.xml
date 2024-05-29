@@ -1,14 +1,4 @@
 <xml>
-    <category name="Sprites" colour="#4C97FF">
-        <block type="sprites_getsprite" />
-        <sep gap="48"></sep>
-        <block type="sprites_stage" />
-        <block type="sprites_isstage" />
-        <sep gap="48"></sep>
-        <block type="sprites_getx" />
-        <block type="sprites_gety" />
-        <block type="sprites_getdir" />
-    </category>
     <category name="Events" colour="#FFBF00">
         <block type="events_interval" />
         <block type="events_timeout" />
@@ -86,6 +76,20 @@
         <block type="conversions_tostring" />
         <sep gap="48"></sep>
         <block type="conversions_time" />
+    </category>
+    <category name="Sprites" colour="#4C97FF">
+        <block type="sprites_getsprite" />
+        <sep gap="48"></sep>
+        <block type="sprites_stage" />
+        <block type="sprites_isstage" />
+        <sep gap="48"></sep>
+        <block type="sprites_getx" />
+        <block type="sprites_gety" />
+        <block type="sprites_getdir" />
+        <sep gap="48"></sep>
+        <block type="sprites_setx" />
+        <block type="sprites_sety" />
+        <block type="sprites_setdir" />
     </category>
     <category name="Variables" colour="#FF8C1A">
         <block type="variable_set" />
