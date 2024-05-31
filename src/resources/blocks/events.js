@@ -60,7 +60,7 @@ function register() {
 
     // when flag
 
-    registerBlock(`${categoryPrefix}interval`, {
+    registerBlock(`${categoryPrefix}flagclicked`, {
         message0: 'when flag clicked %1 %2 (ElectraMod and PenguinMod only)',
         args0: [
             {
