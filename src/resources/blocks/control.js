@@ -249,7 +249,7 @@ function register() {
 
     // while <> do {}
     registerBlock(`${categoryPrefix}while`, {
-        message0: 'while %1 do %2 %3',
+        message0: 'while %1 is true do %2 %3',
         args0: [
             {
                 "type": "input_value",
@@ -272,6 +272,34 @@ function register() {
         const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC);
         const BLOCKS = javascriptGenerator.statementToCode(block, 'BLOCKS');
         const code = `while (${CONDITION ? `Boolean(${CONDITION})` : 'false'}) { ${BLOCKS} };`;
+        return `${code}\n`;
+    })
+
+    // do {}while <> 
+    registerBlock(`${categoryPrefix}dowhile`, {
+        message0: 'do %3 %2 while %1 is true',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "CONDITION",
+                "check": "Boolean"
+            },
+            {
+                "type": "input_dummy"
+            },
+            {
+                "type": "input_statement",
+                "name": "BLOCKS"
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const CONDITION = javascriptGenerator.valueToCode(block, 'CONDITION', javascriptGenerator.ORDER_ATOMIC);
+        const BLOCKS = javascriptGenerator.statementToCode(block, 'BLOCKS');
+        const code = `do { ${BLOCKS} } while (${CONDITION ? `Boolean(${CONDITION})` : 'false'});`;
         return `${code}\n`;
     })
 
