@@ -384,7 +384,7 @@ function register() {
         }, (block) => {
             const NAME = block.getFieldValue('NAME');
             const VALUE = javascriptGenerator.valueToCode(block, 'VALUE', javascriptGenerator.ORDER_ATOMIC);
-            const code = `util.stackFrame["${NAME}"] = ${VALUE || "null"};`;
+            const code = `util.stackFrame[${JSON.stringify(NAME)}] = ${VALUE || "null"};`;
             return `${code}\n`;
         })
 }
