@@ -7,7 +7,7 @@ const categoryColor = '#4C97FF';
 
 function register() {
     registerBlock(`${categoryPrefix}stage`, {
-        message0: 'stage',
+        message0: 'stage sprite',
         args0: [],
         output: "Sprite",
         inputsInline: true,
@@ -31,6 +31,16 @@ function register() {
     }, (block) => {
         const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
         return [`Scratch.vm.runtime.getSpriteTargetByName("${SPRITE}")`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
+    registerBlock(`${categoryPrefix}getblockuser`, {
+        message0: 'sprite/clone which ran this block',
+        args0: [],
+        output: "Sprite",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        return [`util.target`, javascriptGenerator.ORDER_ATOMIC];
     })
 
     registerBlock(`${categoryPrefix}getcloneofwithvar`, {
