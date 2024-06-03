@@ -311,6 +311,56 @@ function register() {
         return `{const ${variable} = ${SPRITE || "undefined"}; isSpriteInternal(${variable}) ? ${variable}.setDirection(${NEWVALUE || 0}) : 0};\n`;
     })
 
+    registerBlock(`${categoryPrefix}turncw`, {
+        message0: 'turn %1 clockwise by %2 (Scratch) degrees',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            },
+            {
+                "type": "input_value",
+                "name": "NEWVALUE",
+                "check": "Number"
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const NEWVALUE = javascriptGenerator.valueToCode(block, 'NEWVALUE', javascriptGenerator.ORDER_ATOMIC);
+        const variable = compileVars.next();
+        return `{const ${variable} = ${SPRITE || "undefined"}; isSpriteInternal(${variable}) ? ${variable}.setDirection(${variable}.direction + ${NEWVALUE || 0}) : 0};\n`;
+    })
+
+    registerBlock(`${categoryPrefix}turnccw`, {
+        message0: 'turn %1 counter-clockwise by %2 (Scratch) degrees',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            },
+            {
+                "type": "input_value",
+                "name": "NEWVALUE",
+                "check": "Number"
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const NEWVALUE = javascriptGenerator.valueToCode(block, 'NEWVALUE', javascriptGenerator.ORDER_ATOMIC);
+        const variable = compileVars.next();
+        return `{const ${variable} = ${SPRITE || "undefined"}; isSpriteInternal(${variable}) ? ${variable}.setDirection(${variable}.direction - ${NEWVALUE || 0}) : 0};\n`;
+    })
+
     registerBlock(`${categoryPrefix}getxstretch`, {
         message0: 'x stretch of %1 (PenguinMod and forks only)',
         args0: [
