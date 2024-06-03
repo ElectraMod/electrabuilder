@@ -446,6 +446,56 @@ function register() {
         const variable = compileVars.next();
         return `{const ${variable} = ${SPRITE || "undefined"}; isSpriteInternal(${variable}) ? ${variable}.setStretch(${variable}.stretch[0], ${NEWVALUE || 0}) : 0};\n`;
     })
+
+    registerBlock(`${categoryPrefix}say`, {
+        message0: 'make %1 say %2',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            },
+            {
+                "type": "input_value",
+                "name": "TEXT",
+                "check": "String"
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const TEXT = javascriptGenerator.valueToCode(block, 'TEXT', javascriptGenerator.ORDER_ATOMIC);
+        const variable = compileVars.next();
+        return `{const ${variable} = ${SPRITE || "undefined"}; isSpriteInternal(${variable}) ? Scratch.vm.runtime.emit("SAY", ${variable}, "say", ${TEXT}) : 0};\n`;
+    })
+
+    registerBlock(`${categoryPrefix}think`, {
+        message0: 'make %1 think %2',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            },
+            {
+                "type": "input_value",
+                "name": "TEXT",
+                "check": "String"
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const TEXT = javascriptGenerator.valueToCode(block, 'TEXT', javascriptGenerator.ORDER_ATOMIC);
+        const variable = compileVars.next();
+        return `{const ${variable} = ${SPRITE || "undefined"}; isSpriteInternal(${variable}) ? Scratch.vm.runtime.emit("SAY", ${variable}, "think", ${TEXT}) : 0};\n`;
+    })
 }
 
 export default register;
