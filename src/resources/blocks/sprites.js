@@ -496,6 +496,62 @@ function register() {
         const variable = compileVars.next();
         return `{const ${variable} = ${SPRITE || "undefined"}; isSpriteInternal(${variable}) ? Scratch.vm.runtime.emit("SAY", ${variable}, "think", ${TEXT}) : 0};\n`;
     })
+
+    registerBlock(`${categoryPrefix}show`, {
+        message0: 'make %1 show',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const variable = compileVars.next();
+        return `{const ${variable} = ${SPRITE || "undefined"}; isSpriteInternal(${variable}) ? ${variable}.setVisible(true) : 0};\n`;
+    })
+
+    registerBlock(`${categoryPrefix}hide`, {
+        message0: 'make %1 show',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const variable = compileVars.next();
+        return `{const ${variable} = ${SPRITE || "undefined"}; isSpriteInternal(${variable}) ? ${variable}.setVisible(false) : 0};\n`;
+    })
+
+    registerBlock(`${categoryPrefix}isvisible`, {
+        message0: '%1 visible?',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            },
+        ],
+        output: "Boolean",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const variable = compileVars.next();
+        return [`((function(){const ${variable} = (${SPRITE || "undefined"}; return isSpriteInternal(${variable}) ? ${variable}.visible : 0)})())`, javascriptGenerator.ORDER_ATOMIC]
+    })
 }
 
 export default register;
