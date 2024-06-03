@@ -310,6 +310,92 @@ function register() {
         // hack to get rid of the variable defined after by creating a new scope.
         return `{const ${variable} = ${SPRITE || "undefined"}; isSpriteInternal(${variable}) ? ${variable}.setDirection(${NEWVALUE || 0}) : 0};\n`;
     })
+
+    registerBlock(`${categoryPrefix}getxstretch`, {
+        message0: 'x stretch of %1 (PenguinMod and forks only)',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            },
+        ],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const variable = compileVars.next();
+        return [`((function(){const ${variable} = (${SPRITE || "undefined"}; return isSpriteInternal(${variable}) ? ${variable}.stretch[0] : 0)})())`, javascriptGenerator.ORDER_ATOMIC]
+    })
+
+    registerBlock(`${categoryPrefix}getystretch`, {
+        message0: 'y stretch of %1 (PenguinMod and forks only)',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            },
+        ],
+        output: "Number",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const variable = compileVars.next();
+        return [`((function(){const ${variable} = (${SPRITE || "undefined"}; return isSpriteInternal(${variable}) ? ${variable}.stretch[1] : 0)})())`, javascriptGenerator.ORDER_ATOMIC]
+    })
+
+    registerBlock(`${categoryPrefix}setxstretch`, {
+        message0: 'set x stretch of %1 to %2 (PenguinMod and forks only)',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            },
+            {
+                "type": "input_value",
+                "name": "NEWVALUE",
+                "check": "Number"
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const NEWVALUE = javascriptGenerator.valueToCode(block, 'NEWVALUE', javascriptGenerator.ORDER_ATOMIC);
+        const variable = compileVars.next();
+        return `{const ${variable} = ${SPRITE || "undefined"}; isSpriteInternal(${variable}) ? ${variable}.setStretch(${NEWVALUE || 0}, ${variable}.stretch[1]) : 0};\n`;
+    })
+
+    registerBlock(`${categoryPrefix}setystretch`, {
+        message0: 'set y stretch of %1 to %2 (PenguinMod and forks only)',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE",
+                "check": "Sprite"
+            },
+            {
+                "type": "input_value",
+                "name": "NEWVALUE",
+                "check": "Number"
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
+        const NEWVALUE = javascriptGenerator.valueToCode(block, 'NEWVALUE', javascriptGenerator.ORDER_ATOMIC);
+        const variable = compileVars.next();
+        return `{const ${variable} = ${SPRITE || "undefined"}; isSpriteInternal(${variable}) ? ${variable}.setStretch(${variable}.stretch[0], ${NEWVALUE || 0}) : 0};\n`;
+    })
 }
 
 export default register;
