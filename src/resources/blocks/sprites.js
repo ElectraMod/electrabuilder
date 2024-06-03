@@ -550,7 +550,7 @@ function register() {
     }, (block) => {
         const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE', javascriptGenerator.ORDER_ATOMIC);
         const variable = compileVars.next();
-        return [`((function(){const ${variable} = (${SPRITE || "undefined"}; return isSpriteInternal(${variable}) ? ${variable}.visible : 0)})())`, javascriptGenerator.ORDER_ATOMIC]
+        return [`((function(){const ${variable} = (${SPRITE || "undefined"}; return isSpriteInternal(${variable}) ? ${variable}.visible : false)})())`, javascriptGenerator.ORDER_ATOMIC]
     })
 
      registerBlock(`${categoryPrefix}getsize`, {
@@ -595,6 +595,31 @@ function register() {
         const variable = compileVars.next();
         // hack to get rid of the variable defined after by creating a new scope.
         return `{const ${variable} = ${SPRITE || "undefined"}; isSpriteInternal(${variable}) ? ${variable}.setSize(${NEWVALUE || 0}) : 0};\n`;
+    })
+
+    registerBlock(`${categoryPrefix}spritetouchingothersprite`, {
+        message0: 'is %1 touching %2',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "SPRITE1",
+                "check": "Sprite"
+            },
+            {
+                "type": "input_value",
+                "name": "SPRITE2",
+                "check": "Sprite"
+            },
+        ],
+        output: "Boolean",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const SPRITE = javascriptGenerator.valueToCode(block, 'SPRITE1', javascriptGenerator.ORDER_ATOMIC);
+        const OTHER = javascriptGenerator.valueToCode(block, 'SPRITE1', javascriptGenerator.ORDER_ATOMIC);
+        const variable = compileVars.next();
+        const other = compileVars.next();
+        return [`((function(){const ${variable} = (${SPRITE || "undefined"};const ${other} = (${OTHER || "undefined"}; return isSpriteInternal(${variable}) ? Scratch.vm.renderer ? Scratch.vm.renderer.isTouchingDrawables(${variable}.drawableID, [${other}.drawableID]) : false : false)})())`, javascriptGenerator.ORDER_ATOMIC]
     })
 }
 
