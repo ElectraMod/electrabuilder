@@ -51,6 +51,28 @@ function register() {
         return [`(${X || 0} === ${Y || 0})`, javascriptGenerator.ORDER_ATOMIC];
     })
 
+    registerBlock(`${categoryPrefix}extremelyspecificequalsthatdifferentiatesbetweenzeroandnegativezeroandcandetectnan`, { // i bet you cant read this
+        message0: '%1 is EXACTLY equal to %2 (extremely specific)',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "X"
+            },
+            {
+                "type": "input_value",
+                "name": "Y"
+            }
+        ],
+        output: "Boolean",
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const X = javascriptGenerator.valueToCode(block, 'X', javascriptGenerator.ORDER_ATOMIC);
+        const Y = javascriptGenerator.valueToCode(block, 'Y', javascriptGenerator.ORDER_ATOMIC);
+
+        return [`Object.is(${X || 0}, ${Y || 0})`, javascriptGenerator.ORDER_ATOMIC];
+    })
+
     // x > y
     registerBlock(`${categoryPrefix}more`, {
         message0: '%1 > %2',
