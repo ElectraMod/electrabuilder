@@ -101,6 +101,23 @@ function register() {
         return [`(${X || 0} < ${Y || 0})`, javascriptGenerator.ORDER_ATOMIC];
     })
 
+    registerBlock(`${categoryPrefix}voidstatement`, {
+        message0: 'get the value of %1 and discard it',
+        args0: [
+            {
+                "type": "input_value",
+                "name": "EVALUATED"
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true,
+        colour: categoryColor
+    }, (block) => {
+        const NEWVALUE = javascriptGenerator.valueToCode(block, 'EVALUATED', javascriptGenerator.ORDER_ATOMIC);
+        return `void(${NEWVALUE});`;
+    })
+
     // x and y
     registerBlock(`${categoryPrefix}and`, {
         message0: '%1 and %2',
