@@ -51,8 +51,8 @@ function register() {
         return [`(${X || 0} === ${Y || 0})`, javascriptGenerator.ORDER_ATOMIC];
     })
 
-    registerBlock(`${categoryPrefix}extremelyspecificequalsthatdifferentiatesbetweenzeroandnegativezeroandcandetectnan`, { // i bet you cant read this
-        message0: '%1 is EXACTLY equal to %2 (extremely specific)',
+    registerBlock(`${categoryPrefix}extremelystrictequals`, { // i bet you cant read this
+        message0: '%1 is EXACTLY equal to %2 (extremely strict)',
         args0: [
             {
                 "type": "input_value",
